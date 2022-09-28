@@ -1,0 +1,12 @@
+{
+  "name": "cock",
+  "description": "Shows your current cock size",
+  "options": [
+    {
+      "name": "name",
+      "description": "Compare your cock with another user on your server",
+      "type": 6,
+      "required": false
+    }
+  ]
+}

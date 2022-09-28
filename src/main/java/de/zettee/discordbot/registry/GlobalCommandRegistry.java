@@ -64,7 +64,7 @@ public class GlobalCommandRegistry implements ApplicationRunner {
 
             // Execute request and subscribe to events
             final String scope = this.clientConfig.isProduction() ? "GLOBAL" : "GUILD";
-            bulkOverwriteData.doOnNext(ignore -> LOGGER.debug("Successfully registered commands with scope " + scope))
+            bulkOverwriteData.doOnNext(ignore -> LOGGER.info("Successfully registered commands with scope " + scope))
                     .doOnError(e -> LOGGER.error("Failed to register commands with scope " + scope, e))
                     .subscribe();
 

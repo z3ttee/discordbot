@@ -40,8 +40,6 @@ public class Discordbot {
             discordClientToken = System.getenv(TOKEN_ENV_KEY);
         }
 
-        this.logger.warn(discordClientToken);
-
         return DiscordClientBuilder.create(discordClientToken).build()
                 .gateway()
                 .setInitialPresence(ignore -> ClientPresence.online(ClientActivity.listening("to /commands")))
