@@ -42,7 +42,7 @@ public class Discordbot {
 
         return DiscordClientBuilder.create(discordClientToken).build()
                 .gateway()
-                .setInitialPresence(ignore -> ClientPresence.online(ClientActivity.listening("to /commands")))
+                .setInitialPresence(ignore -> ClientPresence.online())
                 .login()
                 .block();
     }

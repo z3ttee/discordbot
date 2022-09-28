@@ -3,7 +3,31 @@
   "description": "Shows your current cock size",
   "options": [
     {
-      "name": "name",
+      "name": "mention",
+      "description": "Compare your cock with another user on your server",
+      "type": 6,
+      "required": false
+    },
+    {
+      "name": "mention2",
+      "description": "Compare your cock with another user on your server",
+      "type": 6,
+      "required": false
+    },
+    {
+      "name": "mention3",
+      "description": "Compare your cock with another user on your server",
+      "type": 6,
+      "required": false
+    },
+    {
+      "name": "mention4",
+      "description": "Compare your cock with another user on your server",
+      "type": 6,
+      "required": false
+    },
+    {
+      "name": "mention5",
       "description": "Compare your cock with another user on your server",
       "type": 6,
       "required": false
