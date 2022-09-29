@@ -1,6 +1,7 @@
 {
   "name": "cock",
   "description": "Shows your current cock size",
+  "type": 1,
   "options": [
     {
       "name": "mention",

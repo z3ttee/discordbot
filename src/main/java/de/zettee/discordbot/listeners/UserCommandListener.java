@@ -1,8 +1,8 @@
 package de.zettee.discordbot.listeners;
 
-import de.zettee.discordbot.commands.SlashCommand;
+import de.zettee.discordbot.commands.UserCommand;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
+import discord4j.core.event.domain.interaction.UserInteractionEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -11,16 +11,16 @@ import java.util.Collection;
 import java.util.List;
 
 @Component
-public class SlashCommandListener {
+public class UserCommandListener {
 
-    private final Collection<SlashCommand> commands;
+    private final Collection<UserCommand> commands;
 
-    public SlashCommandListener(List<SlashCommand> slashCommands, GatewayDiscordClient client) {
-        commands = slashCommands;
-        client.on(ChatInputInteractionEvent.class, this::handleSlashCommands).subscribe();
+    public UserCommandListener(List<UserCommand> commands, GatewayDiscordClient client) {
+        this.commands = commands;
+        client.on(UserInteractionEvent.class, this::handleUserCommands).subscribe();
     }
 
-    public Mono<Void> handleSlashCommands(ChatInputInteractionEvent event) {
+    public Mono<Void> handleUserCommands(UserInteractionEvent event) {
         //Convert our list to a flux that we can iterate through
         return Flux.fromIterable(commands)
                 //Filter out all commands that don't match the name this event is for
@@ -28,7 +28,7 @@ public class SlashCommandListener {
                 //Get the first (and only) item in the flux that matches our filter
                 .next()
                 //Have our command class handle all logic related to its specific command.
-                .flatMap(command -> command.handleSlashCommand(event.getInteraction().getMember().get(), event.getCommandName(), event.getOptions(), event));
+                .flatMap(command -> command.handleUserCommand(event.getResolvedUser(), event.getTargetUser(), event.getCommandName(), event));
     }
 
 }
