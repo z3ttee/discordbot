@@ -28,7 +28,7 @@ public class UserCommandListener {
                 //Get the first (and only) item in the flux that matches our filter
                 .next()
                 //Have our command class handle all logic related to its specific command.
-                .flatMap(command -> command.handleUserCommand(event.getResolvedUser(), event.getTargetUser(), event.getCommandName(), event));
+                .flatMap(command -> command.handleUserCommand(event.getResolvedUser(), event.getTargetUser(), event.getCommandName(), event).then());
     }
 
 }

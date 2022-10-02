@@ -22,6 +22,7 @@ public class Discordbot {
     public static final String TOKEN_ENV_KEY = "DISCORD_CLIENT_TOKEN";
     public static final String GUILDID_ENV_KEY = "GUILD_ID";
     public static final String ENVIRONMENT_ENV_KEY = "ENVIRONMENT";
+    public static final int MAX_COCK_SIZE = 20;
 
     public static void main(String[] args) {
         // Start Spring application

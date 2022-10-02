@@ -1,5 +1,6 @@
 package de.zettee.discordbot.entities;
 
+import de.zettee.discordbot.Discordbot;
 import discord4j.core.object.entity.User;
 
 public class Cock {
@@ -9,14 +10,14 @@ public class Cock {
     private String segments = "";
 
     public Cock() {
-        this.size = (int) ((Math.random() * 20) + 1);
+        this.size = (int) ((Math.random() * Discordbot.MAX_COCK_SIZE) + 1);
 
         for (int i = 0; i < this.size; ++i) {
             this.segments = segments.concat("=");
         }
     }
     public Cock(User owner) {
-        this.size = (int) ((Math.random() * 20) + 1);
+        this.size = (int) ((Math.random() * Discordbot.MAX_COCK_SIZE) + 1);
         this.owner = owner;
 
         for(int i = 0; i < this.size; ++i) {

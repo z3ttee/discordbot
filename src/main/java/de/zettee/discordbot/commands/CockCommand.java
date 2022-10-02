@@ -6,15 +6,18 @@ import discord4j.core.event.domain.interaction.ApplicationCommandInteractionEven
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.User;
+import discord4j.core.spec.EmbedCreateSpec;
+import discord4j.core.spec.InteractionReplyEditSpec;
+import discord4j.rest.util.Color;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component
-public class CockCommand implements SlashCommand, UserCommand {
+public class CockCommand implements SlashCommand {
 
     @Override
     public String getName() {
@@ -26,33 +29,47 @@ public class CockCommand implements SlashCommand, UserCommand {
         // Handle command for sender
         if(options.size() == 0) {
             final Cock cock = new Cock();
-            return event.reply().withContent("Your cock size is: " + cock.getSize() + "cm\n\n" + cock);
+
+            EmbedCreateSpec embedSpec = EmbedCreateSpec.builder()
+                    .color(Color.MAGENTA)
+                    .title(sender.getUsername() + "'s Cock (" + cock.getSize() + "cm)")
+                    .description(cock.toString())
+                    .build();
+
+            return event.reply(sender.getMention() + " hat seinen Cock geleaked:")
+                    .withEmbeds(embedSpec);
         }
 
-        event.reply("Calculating...").subscribe();
+        // Send first reply
+        event.reply("Cock-Vergleich wird aufgestellt...").block(Duration.ofSeconds(2));
 
-        List<Cock> cocks = new ArrayList<>();
+        // Create embed builder
+        EmbedCreateSpec.Builder embedBuilder = EmbedCreateSpec.builder()
+                .color(Color.MAGENTA)
+                .title("Ultimativer Cock-Vergleich");
+
+        // Create cocks
+        AtomicReference<Cock> largest = new AtomicReference<>(null);
         options.forEach((option) -> {
             final User user = CommandValue.getUser(option);
             if(user == null) return;
 
-            cocks.add(new Cock(user));
+            final Cock cock = new Cock(user);
+            if(largest.get() == null || largest.get().getSize() < cock.getSize()) {
+                largest.set(cock);
+            }
+
+            embedBuilder.addField(cock.getOwner().getUsername() + "(" + cock.getSize() + "cm): ", cock.toString(), false);
         });
 
-        return event.editReply(cocks.stream().map((cock) -> {
-            final User owner = cock.getOwner();
-            return owner.getUsername() + " [ " + cock.getSize() + "cm ]: " + cock;
-        }).collect(Collectors.joining("\n"))).then();
+        // Construct reply
+        return event.editReply(
+            InteractionReplyEditSpec
+                .builder()
+                .contentOrNull("Gewonnen hat " + largest.get().getOwner().getMention() + " mit unglaublichen " + largest.get().getSize() + "cm")
+                .addEmbed(embedBuilder.build())
+                .build()
+        ).then();
     }
 
-    @Override
-    public Mono<Void> handleUserCommand(User sender, Mono<User> target, String command, ApplicationCommandInteractionEvent event) {
-        return event.getInteraction().getGuild().map(guild -> {
-            return sender.asMember(guild.getId()).map(member -> {
-                return event.getInteraction().getCommandInteraction().map(interaction -> {
-                    return this.handleSlashCommand(member, command, interaction.getOptions(), event);
-                });
-            });
-        }).then();
-    }
 }
