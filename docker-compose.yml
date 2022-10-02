@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  discordbot:
+    image: zettee/discordbot
+    restart: on-failure
+    environment:
+      DISCORD_CLIENT_TOKEN:
