@@ -1,0 +1,6 @@
+{
+  "name": "pick",
+  "description": "Pick a member of the current discord server",
+  "type": 1,
+  "options": []
+}

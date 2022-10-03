@@ -6,6 +6,7 @@ import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.presence.ClientActivity;
 import discord4j.core.object.presence.ClientPresence;
+import discord4j.gateway.intent.IntentSet;
 import discord4j.rest.RestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class Discordbot {
         return DiscordClientBuilder.create(discordClientToken).build()
                 .gateway()
                 .setInitialPresence(ignore -> ClientPresence.online())
+                .setEnabledIntents(IntentSet.all())
                 .login()
                 .block();
     }
