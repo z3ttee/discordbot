@@ -38,8 +38,8 @@ public class PickCommand implements SlashCommand {
         UUID onlineBtnId = UUID.randomUUID();
         UUID offlineBtnId = UUID.randomUUID();
 
-        Button onlineBtn = Button.primary(onlineBtnId.toString(), "Nur Online");
-        Button offlineBtn = Button.secondary(offlineBtnId.toString(), "Mit Offline");
+        Button offlineBtn = Button.primary(offlineBtnId.toString(), "Alle");
+        Button onlineBtn = Button.secondary(onlineBtnId.toString(), "Nur Online");
 
         AtomicBoolean wasTriggered = new AtomicBoolean(false);
 
@@ -63,7 +63,7 @@ public class PickCommand implements SlashCommand {
         return event.reply()
                 .withEphemeral(true)
                 .withContent("Welcher Online-Status soll beim aufbauen des Pools berücksichtigt werden? (Auswahl läuft in 15s ab)")
-                .withComponents(ActionRow.of(Arrays.asList(onlineBtn, offlineBtn)))
+                .withComponents(ActionRow.of(Arrays.asList(offlineBtn, onlineBtn)))
                 .then(tmpButtonListener);
     }
 
