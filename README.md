@@ -12,7 +12,7 @@ There are two options for installing and running the discord bot:
 ### Docker
 
 ```bash
-docker run -e DISCORD_CLIENT_TOKEN=<YOUR_DISCORD_CLIENT_TOKEN> zettee/discordbot
+docker run -e DISCORD_CLIENT_TOKEN=<YOUR_DISCORD_CLIENT_TOKEN> --name=discordbot --restart=always zettee/discordbot
 ```
 
 ### Run via Java
