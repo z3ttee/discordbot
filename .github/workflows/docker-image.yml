@@ -41,8 +41,6 @@ jobs:
       - name: Read version
         id: read-version
         uses: martinbeentjes/npm-get-version-action@main
-        with:
-          path: apps/api
           
       - name: Output version
         id: outputVersion
