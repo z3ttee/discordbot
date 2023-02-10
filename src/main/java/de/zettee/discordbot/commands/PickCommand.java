@@ -87,7 +87,7 @@ public class PickCommand implements SlashCommand {
             }));
         }
 
-        Member member = poolStream.findFirst().orElse(null);
+        Member member = poolStream.findAny().orElse(null);
         if(member == null) {
             return event.createFollowup("Es konnte kein Mitglied ausgewählt werden, da keiner auf die Kriterien zutrifft.").then();
         }
