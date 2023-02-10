@@ -78,4 +78,4 @@ jobs:
         with:
           push: true
           tags: 
-            ${{ secrets.DOCKERHUB_USERNAME }}/zettee:${{ needs.check_branch.outputs.tag }},${{ secrets.DOCKERHUB_USERNAME }}/zettee:${{ needs.check_branch.outputs.tag }}-${{ needs.check_version.outputs.version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/discordbot:${{ needs.check_branch.outputs.tag }},${{ secrets.DOCKERHUB_USERNAME }}/discordbot:${{ needs.check_branch.outputs.tag }}-${{ needs.check_version.outputs.version }}
