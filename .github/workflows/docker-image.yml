@@ -1,4 +1,4 @@
-name: Soundcore Image Build
+name: Discordbot Image Build
       
 on:
   push:
